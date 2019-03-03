@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+<bean id="exce" class="Exception.BeansException" ></bean>
+
+<bean id="tt" class="Exception.ErrorElemetProtory"></bean>
+</beans>

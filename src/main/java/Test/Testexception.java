@@ -1,13 +1,13 @@
 package Test;
 
+import Exception.ErrorElemetProtory;
 import context.support.ClassPathXmlApplicationContext;
-import core.io.DefaultResourceLoader;
 import core.io.ResourceLoader;
 
 public class Testexception {
 	public static void main(String[] args) {
-		 ResourceLoader loader = new DefaultResourceLoader();  
-		 loader.getResource("C:\\自学第一次\\min_spring\\src\\main\\resources");
-		
+		ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("spring/spring.xml");
+	 ErrorElemetProtory getbean = (ErrorElemetProtory)classPathXmlApplicationContext.getbean("tt");
+		System.out.println(getbean);
 	}
 }
