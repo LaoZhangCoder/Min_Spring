@@ -1,6 +1,9 @@
 package context.support;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -31,8 +34,9 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 			reader.loadBeanDefinitions(configLocations);
 		}
 	}
+	@SuppressWarnings("unchecked")
 	protected <T> T  dogetbean(String id) throws Exception{
-		Object newInstance=null;
+		Object object=null;
 		if(id==null) {
 			throw new BeansException("请输入bean的id");
 		}else {
@@ -40,14 +44,28 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 		if(beanDefinitions.containsKey(id)) {
 			BeanDefinition beanDefinition = beanDefinitions.get(id);
 			String classpath = beanDefinition.getClasspath();
-			Class<?> forName = Class.forName(classpath);
-			newInstance = forName.newInstance();
+			Class<?> newInstance1= Class.forName(classpath);
+			 object = newInstance1.newInstance();
+		System.out.println(object);
+			HashMap<String,String> map = beanDefinition.getMap();
+			Set<Entry<String,String>> entrySet = map.entrySet();
+			for (Entry<String, String> entry : entrySet) {
+				String key = entry.getKey();
+				 Method method = newInstance1.getMethod("set"+key.substring(0, 1).toUpperCase()+key.substring(1),entry.getValue().getClass());
+		            method.invoke(object,entry.getValue().toString());
+				
+				
+				 System.out.println(object);
+			
+			}
+			
 		}else {
 			throw new BeansException("不存在bean请检查其id输入是否正确和是否配置了id!");
 		}
        		
 		}
-		return (T) newInstance;
+		
+		return (T) object;
 		
 		
 		

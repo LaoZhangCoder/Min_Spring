@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-<bean id="exce" class="Exception.BeansException" ></bean>
+<bean id="tt" class="Exception.BeansException" >
+<property name="read" value="11"></property>
+<property name="read1" value="113"></property>
+<property name="read2" value="114"></property>
+</bean>
 
-<bean id="tt" class="Exception.ErrorElemetProtory"></bean>
 </beans>
