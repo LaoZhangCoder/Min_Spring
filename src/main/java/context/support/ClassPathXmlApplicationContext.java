@@ -1,25 +1,22 @@
 package context.support;
 
+import java.io.File;
+
 public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext{
-	public ClassPathXmlApplicationContext(String configLocation){
-		this(configLocation,true);
-	}
-	public ClassPathXmlApplicationContext(String configLocation,Boolean refresh) {
-		
-		setConfigpath(configLocation);
-		if (refresh) {
-			refresh();
-		}
+	private File file;
+	public ClassPathXmlApplicationContext(String configLocation) {
+		this.file=new File(configLocation);
+		setFile(file);
+		refresh();
 		
 	}
-	public <T> T getbean(String id) {
-		// TODO Auto-generated method stub
-		try {
-			return dogetbean(id);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	
+	public File getFile() {
+		return file;
 	}
+	public void setFile(File file) {
+		this.file = file;
+	}
+	
+	
 }

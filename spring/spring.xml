@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-<bean id="tt" class="Exception.BeansException" >
-<property name="read" value="11"></property>
-<property name="read1" value="113"></property>
-<property name="read2" value="114"></property>
-</bean>
 
+<bean id="bb" class="Exception.Testb">
+<property name="testb" value="testb"></property>
+
+</bean>
+<bean id="cc" class="Exception.Testc">
+
+<property name="testb" ref="bb"></property>
+</bean>
 </beans>

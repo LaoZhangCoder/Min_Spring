@@ -4,10 +4,18 @@ public class BeansException extends RuntimeException {
 	/**
 	 * 
 	 */
+	private ErrorElemetProtory error;
+	
+	public ErrorElemetProtory getError() {
+		return error;
+	}
+	public void setError(ErrorElemetProtory error) {
+		this.error = error;
+	}
 	private static final long serialVersionUID = 1L;
 	private String read;
 	private String read1;
-	private String read2;
+	
 	
 	public String getRead1() {
 		return read1;
@@ -15,12 +23,7 @@ public class BeansException extends RuntimeException {
 	public void setRead1(String read1) {
 		this.read1 = read1;
 	}
-	public String getRead2() {
-		return read2;
-	}
-	public void setRead2(String read2) {
-		this.read2 = read2;
-	}
+	
 	public String getRead() {
 		return read;
 	}
@@ -33,6 +36,10 @@ public class BeansException extends RuntimeException {
 	public BeansException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "BeansException [error=" + error + ", read=" + read + ", read1=" + read1 +  "]";
 	}
 
 	

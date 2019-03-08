@@ -1,24 +1,71 @@
 package context.support;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
-import Exception.ConfigPathisNull;
+import Exception.BeansException;
+import beans.config.BeanDefinition;
+import beans.factory.ConfigurableListableBeanFactory;
+import beans.factory.DefaultListableBeanFactory;
 
 public abstract class AbstractRefreshableConfigApplicationContext extends AbstractRefreshableApplicationContext {
-private String configpath;
-	public void setSpringxmlpath(String path) {
-		if(path!=null) {
-			
-			setConfigpath(path);
-		}else {
-			throw new ConfigPathisNull("spring path is must not null");
-		}
-		
-		
-	}
-	public String getConfigpath() {
-		return configpath;
-	}
-	public void setConfigpath(String configpath) {
-		this.configpath = configpath;
-	}
+	//这里就将旧版本的beanfactory通过组合模式组装进来了
+	private DefaultListableBeanFactory beanFactory;
+
 	
+	private final Object beanFactoryMonitor = new Object();
+
+	@Override
+	protected void refreshBeanFactory() {
+		// TODO Auto-generated method stub
+		DefaultListableBeanFactory beanFactory = createBeanFactory();
+		
+	
+		loadBeanDefinitions(beanFactory);
+		synchronized (this.beanFactoryMonitor) {
+			this.beanFactory = beanFactory;
+		}
+	}
+
+	public DefaultListableBeanFactory createBeanFactory() {
+		return new DefaultListableBeanFactory();
+	}
+	protected abstract void loadBeanDefinitions(DefaultListableBeanFactory beanFactory);
+
+	@Override
+	public final ConfigurableListableBeanFactory getBeanFactory() {
+		synchronized (this.beanFactoryMonitor) {
+			if (this.beanFactory == null) {
+				throw new IllegalStateException("BeanFactory not initialized or already closed - " +
+						"call 'refresh' before accessing beans via the ApplicationContext");
+			}
+			return this.beanFactory;
+		}
+	}
+
+	public <T> T getbean(String id) {
+		// TODO Auto-generated method stub
+		try {
+			return dogetbean(id,this.beanFactory);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> T dogetbean(String id, DefaultListableBeanFactory beanFactory2) throws Exception {
+		Object object=null;
+		if(id==null) {
+			throw new BeansException("请输入bean的id");
+		}else {
+			return beanFactory2.Createbean(id);
+	
+		}
+	
+	
+}
 }

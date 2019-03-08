@@ -16,7 +16,24 @@ public  class BeanDefinition {
   private String  scope=Scope.valueOf(0);
   private String classpath;
   private HashMap<String, String> protpertymaps=new HashMap<String, String>() ;
+  private List<String> depends=new ArrayList<String>();
   
+  
+public BeanDefinition() {
+	super();
+}
+public HashMap<String, String> getProtpertymaps() {
+	return protpertymaps;
+}
+public void setProtpertymaps(HashMap<String, String> protpertymaps) {
+	this.protpertymaps = protpertymaps;
+}
+public List<String> getDepends() {
+	return depends;
+}
+public void setDepends(List<String> depends) {
+	this.depends = depends;
+}
 public HashMap<String, String> getMap() {
 	return protpertymaps;
 }
@@ -49,8 +66,12 @@ public void setClasspath(String classpath) {
 }
 @Override
 public String toString() {
-	return "BeanDefinition [id=" + id + ", name=" + name + ", scope=" + scope + ", classpath=" + classpath + ", map="
-			+ protpertymaps + "]";
+	return "BeanDefinition [id=" + id + ", name=" + name + ", scope=" + scope + ", classpath=" + classpath
+			+ ", protpertymaps=" + protpertymaps + ", depends=" + depends + "]";
+}
+public Class<?> getBeanClass() throws ClassNotFoundException {
+	// TODO Auto-generated method stub
+	return Class.forName(getClasspath());
 }
 
 	
