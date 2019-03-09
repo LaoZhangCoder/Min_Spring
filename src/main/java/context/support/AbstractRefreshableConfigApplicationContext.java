@@ -50,12 +50,11 @@ public abstract class AbstractRefreshableConfigApplicationContext extends Abstra
 		try {
 			return dogetbean(id,this.beanFactory);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
-
 	@SuppressWarnings("unchecked")
 	private <T> T dogetbean(String id, DefaultListableBeanFactory beanFactory2) throws Exception {
 		Object object=null;

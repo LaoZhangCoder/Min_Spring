@@ -18,6 +18,8 @@ public void setTesta(String testa) {
 public String ccc() {
 	return "Testa [b=" + b + ", testa=" + testa + "]";
 }
-
+public void test() {
+	System.out.println("testa的值为"+testa);
+}
 
 }

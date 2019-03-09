@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-
-<bean id="bb" class="Exception.Testb">
+<bean id="aa" class="Exception.Testa">
+<property name="b" ref="bb"></property>
+<property name="testa" value="哈哈哈"></property>
+</bean>
+<bean id="bb" class="Exception.Testb"  >
 <property name="testb" value="testb"></property>
-
+<property name="testc" ref="cc"></property>
 </bean>
 <bean id="cc" class="Exception.Testc">
-
-<property name="testb" ref="bb"></property>
+<property name="testa" ref="aa"></property>
+<property name="testc" value="哈哈哈"></property>
 </bean>
 </beans>

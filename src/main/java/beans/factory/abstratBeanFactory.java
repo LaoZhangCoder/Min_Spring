@@ -1,13 +1,23 @@
 package beans.factory;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
+
+import beans.config.BeanDefinition;
 
 public abstract class abstratBeanFactory {
 	 protected Map<String, Object> singleBeanPool = new HashMap<String, Object>();
 	    protected Map<String, Object> earlysingleBeanPool = new HashMap<String, Object>();
 	    protected Map<String, Class<?>> BeanFactory = new HashMap<String, Class<?>>();
-	    
+	   protected final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(256);
+	 
+
 
 		public Map<String, Class<?>> getBeanFactory() {
 			return BeanFactory;
@@ -41,4 +51,83 @@ public abstract class abstratBeanFactory {
 			return singletonObject;
 	    	
 	    }
-}
+	    protected void addsingle(Object object,String id) {    	
+	    	this.getSingleBeanPool().put(id,object);	
+	    	
+	    		    	
+	    }
+	  protected <T> T  getbeanprototype(String id,BeanDefinition beanDefiniton) throws NoSuchMethodException, Exception {
+		  Class<?> cl=null;
+		  Object bean = null;
+		  List<String> depends = beanDefiniton.getDepends();
+		  if(beanDefiniton.getScope().equals("sigleton")) {			  
+		    cl = BeanFactory.get(id);
+			 bean = earlysingleBeanPool.get(id);
+			 }else {
+				cl = beanDefiniton.getBeanClass();
+				bean=cl.newInstance();
+			}
+			if (depends != null) {
+				for (String depend : depends) {
+					// 对象依赖属性的注入
+					resiterRef(cl, bean, beanDefiniton, depend);
+				}
+			}
+			if(beanDefiniton.getProtpertymaps()!=null) {
+			// 普通属性的注入
+			resiterpropery(cl, bean, beanDefiniton);}
+
+			return (T) bean;
+
+		  
+		  
+		  
+		  
+	  }
+	// 普通属性的依赖注入
+		public void resiterpropery(Class<?> cl, Object bean, BeanDefinition beanDefinition) throws Exception {
+			// 这里是普通属性的注入
+			HashMap<String, String> map = beanDefinition.getMap();
+			Set<Entry<String, String>> entrySet = map.entrySet();
+			for (Entry<String, String> entry : entrySet) {
+				String value = entry.getValue();
+				String key = entry.getKey();
+				if (!(value.charAt(value.length() - 1) == '.')) {
+					Method method = cl.getMethod("set" + key.substring(0, 1).toUpperCase() + key.substring(1),
+							entry.getValue().getClass());
+					method.invoke(bean, entry.getValue().toString());
+				}
+			}
+
+		}
+		// 对象属性的依赖注入
+		public void resiterRef(Class<?> cl, Object bean, BeanDefinition beanDefinition, String depend)
+				throws NoSuchMethodException, SecurityException, Exception {
+				String key = beanDefinition.getRefname().get(depend);
+					if(this.beanDefinitionMap.get(depend).getScope().equals("sigleton")) {
+					String methodName = "set" + key.substring(0, 1).toUpperCase() + key.substring(1);
+					// 获取bean的class对象
+					// 通过反射获取方法
+					Method method = cl.getMethod(methodName, this.getBeanFactory().get(depend));
+					// 调用set方法完成注入
+					method.invoke(bean, this.earlysingleBeanPool.get(depend));
+				}
+					if(this.beanDefinitionMap.get(depend).getScope().equals("prototype")) {
+						String methodName = "set" + key.substring(0, 1).toUpperCase() + key.substring(1);
+						// 获取bean的class对象
+						// 通过反射获取方法
+						 Class<?> beanClass = beanDefinitionMap.get(depend).getBeanClass();
+						Method method = cl.getMethod(methodName,beanClass);
+						Object newInstance = beanClass.newInstance();
+						// 调用set方法完成注入
+						method.invoke(bean,newInstance);
+						if(beanDefinitionMap.get(depend).getProtpertymaps()!=null) {
+							// 普通属性的注入
+							resiterpropery(beanClass, newInstance, beanDefinitionMap.get(depend));}
+						
+					} 	
+				}
+			
+		
+		}
+

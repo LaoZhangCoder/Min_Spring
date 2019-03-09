@@ -1,20 +1,38 @@
 package Exception;
 
 public class Testc {
-private Testb testb;
+private Testa testa;
+private String testc;
 
-public Testb getTestb() {
-	return testb;
+public Testa getTesta() {
+	return testa;
 }
 
-public void setTestb(Testb testb) {
-	this.testb = testb;
+
+
+public void setTesta(Testa testa) {
+	this.testa = testa;
 }
 
-@Override
-public String toString() {
-	return "Testc [testb=" + testb + "]";
+
+
+
+
+
+
+public String getTestc() {
+	return testc;
 }
 
-	
+
+
+public void setTestc(String testc) {
+	this.testc = testc;
+}
+
+
+
+public void test() {
+	System.out.println("testc的值为"+testc);
+}
 }

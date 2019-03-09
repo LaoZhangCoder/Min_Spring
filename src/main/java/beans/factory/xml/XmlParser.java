@@ -43,7 +43,9 @@ public class XmlParser {
 					}
 					if(attribute.getName().equals("ref")) {
 						beanDefinition.getDepends().add(attribute.getValue());
-						beanDefinition.getMap().put(str, attribute.getStringValue()+".");
+						beanDefinition.getRefname().put(attribute.getStringValue(),str);
+						beanDefinition.getMap().put(str,attribute.getStringValue()+".");
+					
 						
 					}
 				}
@@ -68,7 +70,7 @@ public class XmlParser {
 				}
 			//这里后面我会加一个条件只要在单例的情况下我才会创建其工厂防止其循环依赖
 				if(beanDefinition.getScope().equals("sigleton")) {
-					System.out.println("456");
+				
 		registry.getBeanFactory().put(beanDefinition.getId(), beanDefinition.getBeanClass());}
 				beanDefinitions.put(beanDefinition.getId(), beanDefinition);
 				
@@ -76,7 +78,7 @@ public class XmlParser {
 			
 			
 		}
-		System.out.println(beanDefinitions);
+	System.out.println(beanDefinitions);
 		return beanDefinitions;
 	
 	    }

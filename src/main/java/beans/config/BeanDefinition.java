@@ -3,6 +3,7 @@ package beans.config;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Enums.Scope;
 
@@ -17,8 +18,15 @@ public  class BeanDefinition {
   private String classpath;
   private HashMap<String, String> protpertymaps=new HashMap<String, String>() ;
   private List<String> depends=new ArrayList<String>();
+  protected Map<String, String> refname = new HashMap<String, String>();
   
   
+public Map<String, String> getRefname() {
+	return refname;
+}
+public void setRefname(Map<String, String> refname) {
+	this.refname = refname;
+}
 public BeanDefinition() {
 	super();
 }
@@ -64,10 +72,11 @@ public String getClasspath() {
 public void setClasspath(String classpath) {
 	this.classpath = classpath;
 }
+
 @Override
 public String toString() {
 	return "BeanDefinition [id=" + id + ", name=" + name + ", scope=" + scope + ", classpath=" + classpath
-			+ ", protpertymaps=" + protpertymaps + ", depends=" + depends + "]";
+			+ ", protpertymaps=" + protpertymaps + ", depends=" + depends + ", refname=" + refname + "]";
 }
 public Class<?> getBeanClass() throws ClassNotFoundException {
 	// TODO Auto-generated method stub
