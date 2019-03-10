@@ -1,5 +1,8 @@
 package Exception;
 
+import annotation.Component;
+
+@Component
 public class Testa {
 private Testb b;
 private String testa;

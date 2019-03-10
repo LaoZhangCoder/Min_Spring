@@ -1,16 +1,8 @@
 package beans.factory.xml;
-
-
-
 import java.io.File;
-import java.util.Map;
-
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
-
-
-import beans.config.BeanDefinition;
 import beans.factory.DefaultListableBeanFactory;
 import beans.factory.support.BeanDefinitionRegistry;
 

@@ -1,6 +1,7 @@
 package beans.factory;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,8 +17,16 @@ public abstract class abstratBeanFactory {
 	    protected Map<String, Object> earlysingleBeanPool = new HashMap<String, Object>();
 	    protected Map<String, Class<?>> BeanFactory = new HashMap<String, Class<?>>();
 	   protected final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(256);
-	 
+	   private List<String> autowiredlist=new ArrayList<String>();
 
+
+		public List<String> getAutowiredlist() {
+		return autowiredlist;
+	}
+
+	public void setAutowiredlist(List<String> autowiredlist) {
+		this.autowiredlist = autowiredlist;
+	}
 
 		public Map<String, Class<?>> getBeanFactory() {
 			return BeanFactory;

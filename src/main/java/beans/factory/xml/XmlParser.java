@@ -8,10 +8,14 @@ import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
-import Enums.Scope;
+import annotation.Component;
 import beans.config.BeanDefinition;
 import beans.factory.DefaultListableBeanFactory;
+@Component
 public class XmlParser {
+	public void aaa() {
+		System.out.println("哈哈哈");
+	}
 	public static Map<String, BeanDefinition> beanDefinitions = new HashMap<String, BeanDefinition>();
     @SuppressWarnings("unlikely-arg-type")
 	public final static Map<String, BeanDefinition> parser(Document doc, DefaultListableBeanFactory registry) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
@@ -21,6 +25,7 @@ public class XmlParser {
 		Iterator it = element.elementIterator();
 		while (it.hasNext()) {
 			Element node = (Element) it.next();
+			System.out.println(node.getName());
 			//解析bean标签
 			if(node.getName().equals("bean")) {
 				BeanDefinition beanDefinition = new BeanDefinition();
@@ -74,10 +79,22 @@ public class XmlParser {
 		registry.getBeanFactory().put(beanDefinition.getId(), beanDefinition.getBeanClass());}
 				beanDefinitions.put(beanDefinition.getId(), beanDefinition);
 				
+			}else if(node.getName().equals("component-scan")) {
+				List<Attribute> attributes = node.attributes();
+				for (Attribute string : attributes) {
+			        if(string.getName().equals("base-package")) {
+			        	registry.getAutowiredlist().add(string.getValue());
+			        }
+				}
+			
+				
+				
+				
 			}
 			
 			
 		}
+		System.out.println(registry.getAutowiredlist());
 	System.out.println(beanDefinitions);
 		return beanDefinitions;
 	

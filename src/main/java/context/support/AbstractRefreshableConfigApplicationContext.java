@@ -1,12 +1,5 @@
 package context.support;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import Exception.BeansException;
-import beans.config.BeanDefinition;
 import beans.factory.ConfigurableListableBeanFactory;
 import beans.factory.DefaultListableBeanFactory;
 
@@ -21,9 +14,14 @@ public abstract class AbstractRefreshableConfigApplicationContext extends Abstra
 	protected void refreshBeanFactory() {
 		// TODO Auto-generated method stub
 		DefaultListableBeanFactory beanFactory = createBeanFactory();
-		
-	
 		loadBeanDefinitions(beanFactory);
+		//这里作用是检查是否开启了自动注入
+		try {
+			CreatebeanbyAutowired(beanFactory);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		synchronized (this.beanFactoryMonitor) {
 			this.beanFactory = beanFactory;
 		}

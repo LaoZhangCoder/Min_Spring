@@ -1,18 +1,12 @@
 package beans.factory;
-
-import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
+import beans.AutowiredObject;
 import beans.config.BeanDefinition;
 import beans.factory.support.BeanDefinitionRegistry;
-
 public class DefaultListableBeanFactory extends abstratBeanFactory
-		implements ConfigurableListableBeanFactory, BeanDefinitionRegistry {
+		implements ConfigurableListableBeanFactory, BeanDefinitionRegistry,AutowiredObject {
 	
 	// 创建完成bean池，我会将创建已完成的bean放入其中
 	protected HashSet<String> isExitCiriu = new HashSet<String>();
@@ -138,6 +132,26 @@ public class DefaultListableBeanFactory extends abstratBeanFactory
 	public boolean isBeanNameInUse(String beanName) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void AutoCreateBean(Class<?> classobject) {
+		// TODO Auto-generated method stub
+		Object object;
+		try {
+			object = classobject.newInstance();
+			
+			this.getSingleBeanPool().put(classobject.getSimpleName(), object);
+			System.out.println(this.singleBeanPool.toString());
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
+		
 	}
 
 }

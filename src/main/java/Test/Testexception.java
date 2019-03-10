@@ -1,20 +1,15 @@
 package Test;
-import Exception.Testb;
-import Exception.Testc;
 import context.support.ClassPathXmlApplicationContext;
+import untils.PackageUtil;
 public class Testexception {
 	private static final String Testb = null;
 
 	public static void main(String[] args) {
 		
 	
-            ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/spring.xml");
-         
-         
-           Testc getbeanbc = (Testc)context.getbean("cc");
-           System.out.println(getbeanbc);
-           Testb getbean = context.getbean("bb");
-         System.out.println(getbean.getTestc());
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/spring.xml");        
+         PackageUtil getbean2 =(PackageUtil)context.getbean("PackageUtil");
+        getbean2.aaa();
 
 	}
 	

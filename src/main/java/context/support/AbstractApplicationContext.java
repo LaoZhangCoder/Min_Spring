@@ -2,7 +2,7 @@ package context.support;
 
 import beans.factory.ConfigurableListableBeanFactory;
 
-public abstract class AbstractApplicationContext implements Application{
+public abstract class AbstractApplicationContext extends AutowiredApplication implements Application{
 	private final Object startupShutdownMonitor = new Object();
 
 

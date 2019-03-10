@@ -1,7 +1,5 @@
 package context.support;
-
 import java.io.File;
-
 public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext{
 	private File file;
 	public ClassPathXmlApplicationContext(String configLocation) {
