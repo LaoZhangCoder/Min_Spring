@@ -31,4 +31,6 @@
   ![](https://github.com/tomsajkdhsakjd/Min_Spring/blob/master/imgs/20190310171956.png)
   
   ![](https://github.com/tomsajkdhsakjd/Min_Spring/blob/master/imgs/20190310172046.png)
+  
+  ![](https://github.com/tomsajkdhsakjd/Min_Spring/blob/master/imgs/20190310174036.png)
 可以看出Testa Testb Testc三个类都自动生成了,对了获取是要通过类名来获取,因为我是用类名作为id放到缓存里面去的
