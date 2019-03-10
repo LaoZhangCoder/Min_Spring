@@ -9,7 +9,7 @@ public class Testexception {
 	
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/spring.xml");        
          PackageUtil getbean2 =(PackageUtil)context.getbean("PackageUtil");
-        getbean2.aaa();
+      
 
 	}
 	
