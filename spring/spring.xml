@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <beans   xmlns:context="http://www.springframework.org/schema/context">
-<context:component-scan base-package="Exception" />
-<context:component-scan base-package="untils" />
 
+<bean id="aaa" class="Exception.Testa">
+<property name="stringa" value="a"></property>
+<property name="inta" value="123"></property>
+<property name="shorta" value="223"></property>
+<property name="booleana" value="true"></property>
+<property name="testc"  ref="bbb"></property>
+</bean>
+<bean id="bbb" class="Exception.Testc">
+<property name="testc" value="testc"></property>
+<property name="testa"  ref="aaa"></property>
+</bean>
 </beans>

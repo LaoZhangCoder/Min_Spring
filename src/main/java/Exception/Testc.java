@@ -35,6 +35,13 @@ public void setTestc(String testc) {
 
 
 
+@Override
+public String toString() {
+	return "Testc [testa=" + testa.toString() + ", testc=" + testc + "]";
+}
+
+
+
 public void test() {
 	System.out.println("testc的值为"+testc);
 }

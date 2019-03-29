@@ -2,6 +2,11 @@ package Exception;
 
 public class AutowiredException extends RuntimeException{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public AutowiredException() {
 		super();
 		// TODO Auto-generated constructor stub

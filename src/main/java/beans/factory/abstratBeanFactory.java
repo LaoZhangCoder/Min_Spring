@@ -3,7 +3,6 @@ package beans.factory;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import beans.config.BeanDefinition;
 
-public abstract class abstratBeanFactory {
+public abstract class abstratBeanFactory  extends AbstractAutowireCapableBeanFactory{
 	 protected Map<String, Object> singleBeanPool = new HashMap<String, Object>();
 	    protected Map<String, Object> earlysingleBeanPool = new HashMap<String, Object>();
 	    protected Map<String, Class<?>> BeanFactory = new HashMap<String, Class<?>>();
@@ -99,16 +98,14 @@ public abstract class abstratBeanFactory {
 			HashMap<String, String> map = beanDefinition.getMap();
 			Set<Entry<String, String>> entrySet = map.entrySet();
 			for (Entry<String, String> entry : entrySet) {
-				String value = entry.getValue();
-				String key = entry.getKey();
-				if (!(value.charAt(value.length() - 1) == '.')) {
-					Method method = cl.getMethod("set" + key.substring(0, 1).toUpperCase() + key.substring(1),
-							entry.getValue().getClass());
-					method.invoke(bean, entry.getValue().toString());
-				}
+				populateBean(entry,cl, bean);
 			}
 
 		}
+		
+
+		
+
 		// 对象属性的依赖注入
 		public void resiterRef(Class<?> cl, Object bean, BeanDefinition beanDefinition, String depend)
 				throws NoSuchMethodException, SecurityException, Exception {
