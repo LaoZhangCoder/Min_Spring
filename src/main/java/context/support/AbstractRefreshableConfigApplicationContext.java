@@ -15,7 +15,7 @@ public abstract class AbstractRefreshableConfigApplicationContext extends Abstra
 		// TODO Auto-generated method stub
 		DefaultListableBeanFactory beanFactory = createBeanFactory();
 		loadBeanDefinitions(beanFactory);
-		//这里作用是检查是否开启了自动注入
+		//这里作用是检查是否开启了注解自动注入
 		try {
 			CreatebeanbyAutowired(beanFactory);
 		} catch (ClassNotFoundException e) {

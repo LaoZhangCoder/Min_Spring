@@ -2,7 +2,6 @@ package Exception;
 
 import annotation.Component;
 
-@Component
 public class Testb {
 private Testa testa;
 private Testc testc;

@@ -9,12 +9,15 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+import Handle.BeanPostProcessor;
 import beans.config.BeanDefinition;
 
 public abstract class abstratBeanFactory  extends AbstractAutowireCapableBeanFactory{
 	 protected Map<String, Object> singleBeanPool = new HashMap<String, Object>();
 	    protected Map<String, Object> earlysingleBeanPool = new HashMap<String, Object>();
 	    protected Map<String, Class<?>> BeanFactory = new HashMap<String, Class<?>>();
+	    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
+	    private final List<BeanFactoryAware> beanFactoryAware = new ArrayList<BeanFactoryAware>();
 	   protected final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(256);
 	   private List<String> autowiredlist=new ArrayList<String>();
 
@@ -84,7 +87,7 @@ public abstract class abstratBeanFactory  extends AbstractAutowireCapableBeanFac
 			if(beanDefiniton.getProtpertymaps()!=null) {
 			// 普通属性的注入
 			resiterpropery(cl, bean, beanDefiniton);}
-
+			bean= initializeBean(bean, beanDefiniton);
 			return (T) bean;
 
 		  
@@ -100,11 +103,37 @@ public abstract class abstratBeanFactory  extends AbstractAutowireCapableBeanFac
 			for (Entry<String, String> entry : entrySet) {
 				populateBean(entry,cl, bean);
 			}
-
+			
+			
 		}
 		
 
 		
+
+		protected Object initializeBean(Object bean, BeanDefinition beanDefinition) {
+			// TODO Auto-generated method stub
+			//对实现了了BeanFactoryAware的处理
+			invokeAwareMethods(bean);
+			Object bean1=bean;
+			List<BeanPostProcessor> postProcessors = this.getBeanPostProcessors();
+			for (BeanPostProcessor beanPostProcessor : postProcessors) {
+				 bean1= beanPostProcessor.postProcessAfterInitialization(bean, beanDefinition.getId());
+			}
+			return bean1;
+		}
+
+		private void invokeAwareMethods(Object cl) {
+			// TODO Auto-generated method stub
+			if(cl!=null) {
+				if(cl instanceof BeanFactoryAware) {
+					((BeanFactoryAware) cl).setBeanFactory(this);
+					
+					
+				}
+				
+			}
+			
+		}
 
 		// 对象属性的依赖注入
 		public void resiterRef(Class<?> cl, Object bean, BeanDefinition beanDefinition, String depend)
@@ -133,6 +162,14 @@ public abstract class abstratBeanFactory  extends AbstractAutowireCapableBeanFac
 						
 					} 	
 				}
+
+		public List<BeanPostProcessor> getBeanPostProcessors() {
+			return beanPostProcessors;
+		}
+
+		public List<BeanFactoryAware> getBeanFactoryAware() {
+			return beanFactoryAware;
+		}
 			
 		
 		}

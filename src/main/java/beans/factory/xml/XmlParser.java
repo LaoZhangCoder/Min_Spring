@@ -90,6 +90,12 @@ public class XmlParser {
 				
 				
 				
+			}else if(node.getName().equals("aspectj-autoproxy")) {
+				BeanDefinition beanDefinition = new BeanDefinition();
+				beanDefinition.setId("aspectJAwareAdvisorAutoProxyCreator");
+				beanDefinition.setClasspath("aop.AspectJAwareAdvisorAutoProxyCreator");
+				beanDefinitions.put("aspectJAwareAdvisorAutoProxyCreator", beanDefinition);
+				registry.getBeanFactory().put(beanDefinition.getId(), beanDefinition.getBeanClass());
 			}
 			
 			

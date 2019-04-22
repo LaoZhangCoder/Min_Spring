@@ -1,7 +1,11 @@
 package beans.factory;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import beans.AutowiredObject;
 import beans.config.BeanDefinition;
 import beans.factory.support.BeanDefinitionRegistry;
@@ -80,7 +84,7 @@ public class DefaultListableBeanFactory extends abstratBeanFactory
 		}
 		// 普通属性的注入
 		resiterpropery(cl, bean, beanDefinition);
-
+		bean= initializeBean(bean, beanDefinition);
 		return (T) bean;
 
 	}
@@ -150,6 +154,29 @@ public class DefaultListableBeanFactory extends abstratBeanFactory
 			e.printStackTrace();
 		}
 		
+	
+		
+	}
+
+	public List<String> getBeanNamesForType(Class<?> beanpost) {
+		
+		List<String> str=new ArrayList<String>();
+		Set<Entry<String,BeanDefinition>> entrySet = beanDefinitionMap.entrySet();
+		for (Entry<String, BeanDefinition> entry : entrySet) {
+			BeanDefinition value = entry.getValue();
+			String classpath = value.getClasspath();
+			try {
+				Class<?> forName = Class.forName(classpath);
+				if(beanpost.isAssignableFrom(forName)) {
+					str.add(entry.getKey());
+				
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return str;
 	
 		
 	}

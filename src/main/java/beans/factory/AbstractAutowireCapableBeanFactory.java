@@ -4,7 +4,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map.Entry;
 
-public abstract class AbstractAutowireCapableBeanFactory {
+import beans.factory.xml.BeanFactory;
+
+public abstract class AbstractAutowireCapableBeanFactory implements BeanFactory{
 
 	public void populateBean(Entry<String, String> entry, Class<?> cl, Object bean) throws Exception {
 
