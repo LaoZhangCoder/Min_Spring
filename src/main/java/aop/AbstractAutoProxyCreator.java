@@ -23,7 +23,7 @@ public abstract class AbstractAutoProxyCreator implements BeanFactoryAware {
 	private Object createProxy(Class<? extends Object> class1, String beanName,
 			HashMap<String, Class<?>> specificInterceptors, Object bean) {
 		// TODO Auto-generated method stub
-		 return Proxy.newProxyInstance(class1.getClassLoader(), class1.getInterfaces(), new JDKDynamicProxy(bean));
+		 return Proxy.newProxyInstance(class1.getClassLoader(), class1.getInterfaces(), new JDKDynamicProxy(bean,specificInterceptors));
 		
 	}
 
