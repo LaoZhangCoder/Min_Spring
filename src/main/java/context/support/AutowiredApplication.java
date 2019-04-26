@@ -2,6 +2,7 @@ package context.support;
 import java.util.List;
 
 import annotation.Component;
+import beans.config.BeanDefinition;
 import beans.factory.DefaultListableBeanFactory;
 import untils.PackageUtil;
 
@@ -15,15 +16,24 @@ public abstract class AutowiredApplication {
 				List<String> list2 = PackageUtil.getallclassname(string);
 				
 			for (String string2 : list2) {
-				
-			Class<?> forName = Class.forName(string2);
+				Class<?> forName = Class.forName(string2);
 			if(forName.isAnnotationPresent(Component.class))
-		beanFactory.AutoCreateBean(forName);
+			{
+				
+				BeanDefinition definition = new BeanDefinition();
+				definition.setClasspath(string2);
+				definition.setScope("singleton");
+				definition.setId(forName.getSimpleName());
+			beanFactory.getBeanDefinitionMap().put(forName.getSimpleName(),definition);
+			
+				
+			}
+
 			}
 			
 		
 			}
-			
+			System.out.println(beanFactory.getBeanDefinitionMap().toString());
 		}
 		
 		

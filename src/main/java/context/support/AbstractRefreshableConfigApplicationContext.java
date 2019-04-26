@@ -13,15 +13,16 @@ public abstract class AbstractRefreshableConfigApplicationContext extends Abstra
 	@Override
 	protected void refreshBeanFactory() {
 		// TODO Auto-generated method stub
-		DefaultListableBeanFactory beanFactory = createBeanFactory();
+				DefaultListableBeanFactory beanFactory = createBeanFactory();
 		loadBeanDefinitions(beanFactory);
-		//这里作用是检查是否开启了注解自动注入
-		try {
-			CreatebeanbyAutowired(beanFactory);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		//这里作用是检查是否开启了注解自动注入即@autowired等注解
+				try {
+					CreatebeanbyAutowired(beanFactory);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		synchronized (this.beanFactoryMonitor) {
 			this.beanFactory = beanFactory;
 		}

@@ -2,8 +2,5 @@
 <beans   xmlns:context="http://www.springframework.org/schema/context"
 xmlns:aop="http://www.springframework.org/schema/aop"
 >
-
-<aop:aspectj-autoproxy />
- <bean class="Exception.Teste" id="teste"></bean>
- <bean  class="Exception.Testd" id="testd"></bean>      
+ <context:component-scan base-package="Exception" />
 </beans>

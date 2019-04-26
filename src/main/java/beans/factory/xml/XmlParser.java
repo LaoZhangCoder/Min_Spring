@@ -13,9 +13,6 @@ import beans.config.BeanDefinition;
 import beans.factory.DefaultListableBeanFactory;
 @Component
 public class XmlParser {
-	public void aaa() {
-		System.out.println("哈哈哈");
-	}
 	public static Map<String, BeanDefinition> beanDefinitions = new HashMap<String, BeanDefinition>();
     @SuppressWarnings("unlikely-arg-type")
 	public final static Map<String, BeanDefinition> parser(Document doc, DefaultListableBeanFactory registry) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
