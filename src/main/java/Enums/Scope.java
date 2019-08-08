@@ -5,6 +5,6 @@ public enum Scope {
 
 	public static String valueOf(int i) {
 		// TODO Auto-generated method stub
-		return "sigleton";
+		return "singleton";
 	}
 }

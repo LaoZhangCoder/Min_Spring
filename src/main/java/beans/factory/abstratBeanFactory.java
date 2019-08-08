@@ -18,6 +18,7 @@ public abstract class abstratBeanFactory  extends AbstractAutowireCapableBeanFac
 	    protected Map<String, Class<?>> BeanFactory = new HashMap<String, Class<?>>();
 	    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
 	    private final List<BeanFactoryAware> beanFactoryAware = new ArrayList<BeanFactoryAware>();
+	    private List<String> BeanNamesList=new ArrayList<String>();
 	   protected final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(256);
 	   private List<String> autowiredlist=new ArrayList<String>();
 
@@ -169,6 +170,14 @@ public abstract class abstratBeanFactory  extends AbstractAutowireCapableBeanFac
 
 		public List<BeanFactoryAware> getBeanFactoryAware() {
 			return beanFactoryAware;
+		}
+
+		public List<String> getBeanNamesList() {
+			return BeanNamesList;
+		}
+
+		public void setBeanNamesList(List<String> beanNamesList) {
+			BeanNamesList = beanNamesList;
 		}
 			
 		

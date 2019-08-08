@@ -4,45 +4,9 @@ import annotation.Component;
 
 @Component
 public class Testc {
-private Testa testa;
-private String testc;
-
-public Testa getTesta() {
-	return testa;
+private void mian() {
+	// TODO Auto-generated method stub
+System.out.println("哈哈哈");
 }
 
-
-
-public void setTesta(Testa testa) {
-	this.testa = testa;
-}
-
-
-
-
-
-
-
-public String getTestc() {
-	return testc;
-}
-
-
-
-public void setTestc(String testc) {
-	this.testc = testc;
-}
-
-
-
-@Override
-public String toString() {
-	return "Testc [testa=" + testa.toString() + ", testc=" + testc + "]";
-}
-
-
-
-public void test() {
-	System.out.println("testc的值为"+testc);
-}
 }

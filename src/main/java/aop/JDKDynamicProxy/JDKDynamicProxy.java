@@ -49,8 +49,9 @@ public class JDKDynamicProxy implements InvocationHandler{
 					list.put("around",method2);
 				}
 			}
-			
+
 			method.invoke(target, args);
+			System.out.println("使用的是jdk动态代理代理");
 			if(list.containsKey("after")) {
 				Method method2 = list.get("after");
 				method2.invoke(value.newInstance(), args);

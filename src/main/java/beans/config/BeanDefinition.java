@@ -16,12 +16,21 @@ public  class BeanDefinition {
   private String name;
   private String  scope=Scope.valueOf(0);
   private String classpath;
+  private Boolean lazy_init=false;
   private HashMap<String, String> protpertymaps=new HashMap<String, String>() ;
   private List<String> depends=new ArrayList<String>();
   protected Map<String, String> refname = new HashMap<String, String>();
-  
-  
-public Map<String, String> getRefname() {
+  private String proxy_target_class="false";
+
+	public String getProxy_target_class() {
+		return proxy_target_class;
+	}
+
+	public void setProxy_target_class(String proxy_target_class) {
+		this.proxy_target_class = proxy_target_class;
+	}
+
+	public Map<String, String> getRefname() {
 	return refname;
 }
 public void setRefname(Map<String, String> refname) {
@@ -81,6 +90,12 @@ public String toString() {
 public Class<?> getBeanClass() throws ClassNotFoundException {
 	// TODO Auto-generated method stub
 	return Class.forName(getClasspath());
+}
+public Boolean getLazy_init() {
+	return lazy_init;
+}
+public void setLazy_init(Boolean lazy_init) {
+	this.lazy_init = lazy_init;
 }
 
 	
