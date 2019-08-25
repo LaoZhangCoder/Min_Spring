@@ -37,7 +37,7 @@ public class AspectJAwareAdvisorAutoProxyCreator<E> extends AbstractAutoProxyCre
 
     @Override
     protected HashMap<String, Class<?>> findEligibleAdvisors(Class<?> beanClass, String beanName) throws Exception {
-        // TODO Auto-generated method stub
+        // TODO Auto-generated method stubhaha
         Map<String, BeanDefinition> beanDefinitionMap = this.beanFactory.getBeanDefinitionMap();
         HashMap<String, Class<?>> list = null;
         Set<Entry<String, BeanDefinition>> entrySet = beanDefinitionMap.entrySet();
